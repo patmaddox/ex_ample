@@ -1,4 +1,5 @@
 PKG_NAME=ex_ample
+MIX_ENV?=prod
 BUILD_DIR=_build/$(MIX_ENV)
 REL_DIR=$(BUILD_DIR)/rel/$(PKG_NAME)
 
@@ -32,7 +33,7 @@ $(LIBEXEC_DIR) : $(BUILD_DIR)
 	cp -R $(REL_DIR)/  $(.TARGET)
 
 $(BUILD_DIR):
-	mix release
+	MIX_ENV=$(MIX_ENV) mix release
 
 clean:
 	rm -rf $(BUILD_DIR)
