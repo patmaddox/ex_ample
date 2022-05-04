@@ -6,26 +6,20 @@ REL_DIR=$(BUILD_DIR)/rel/$(PKG_NAME)
 PKG_PLIST=pkg-plist
 
 STAGEDIR=_stage
-LOCAL_DIR=$(STAGEDIR)/usr/local
-LIBEXEC_DIR=$(LOCAL_DIR)/libexec/$(PKG_NAME)
-BIN_DIR=$(LOCAL_DIR)/bin
-BIN=$(BIN_DIR)/$(PKG_NAME)
+LIBEXEC_DIR=$(PREFIX)/libexec
+BIN=$(PREFIX)/bin/$(PKG_NAME)
 
-$(PKG_PLIST) : $(LIBEXEC_DIR) $(BIN)
+all : $(PKG_PLIST)
+
+install : all
+	cp -R $(REL_DIR) $(LIBEXEC_DIR)
+	ln -s $(LIBEXEC_DIR)/$(PKG_NAME)/bin/$(PKG_NAME) $(BIN)
+
+$(PKG_PLIST) : $(BUILD_DIR)
 	rm -f $(PKG_PLIST)
 
 	find $(STAGEDIR) -type f | sed 's#$(STAGEDIR)/##' > $(PKG_PLIST)
 	find $(STAGEDIR) -type l | sed 's#$(STAGEDIR)/##' >> $(PKG_PLIST)
-
-$(BIN):
-	mkdir -p $(BIN_DIR)
-	rm -f $(.TARGET)
-	ln -s /usr/local/libexec/$(PKG_NAME)/bin/$(PKG_NAME) $(.TARGET)
-
-$(LIBEXEC_DIR) : $(BUILD_DIR)
-	@rm -rf $(.TARGET)
-	@mkdir -p $(.TARGET)
-	cp -R $(REL_DIR)/  $(.TARGET)
 
 $(BUILD_DIR):
 	MIX_ENV=$(MIX_ENV) mix release
