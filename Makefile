@@ -12,7 +12,7 @@ LIBEXEC_DIR=$(LOCAL_DIR)/libexec/$(PKG_NAME)
 BIN_DIR=$(LOCAL_DIR)/bin
 BIN=$(BIN_DIR)/$(PKG_NAME)
 
-package : $(PKG_PLIST)
+all : $(PKG_PLIST)
 	pkg create -M +MANIFEST -r $(PKG_SRC_DIR)/ -p $(PKG_PLIST)
 
 $(PKG_PLIST) : $(LIBEXEC_DIR) $(BIN)
