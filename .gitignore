@@ -24,3 +24,5 @@ ex_ample-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+_pkg_src
+*.pkg
