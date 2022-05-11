@@ -1,0 +1,3 @@
+%{
+  "euclid": {:hex, :euclid, "0.4.0", "cf303bfb6ffb51f17f20d453b1d7fb55397835c6703018c70ff6aecb9cdcf4c1", [:mix], [], "hexpm", "b4e7b498ddc7a216a4e940632c08411319570ef1ea3e997db7d9c3db06d5d4f6"},
+}
