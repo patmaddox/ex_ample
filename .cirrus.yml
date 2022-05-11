@@ -10,6 +10,7 @@ task:
   install_elixir_script:
     - pkg install -y elixir
     - mix local.hex --force
+    - mix local.rebar --force
   install_postgres_script:
     - pkg install -y postgresql12-server
     - sysrc postgresql_enable=yes
