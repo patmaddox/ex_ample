@@ -15,8 +15,8 @@ task:
     - pkg install -y postgresql12-server
     - sysrc postgresql_enable=yes
     - /usr/local/etc/rc.d/postgresql initdb
+  start_postgres_background_script:
     - /usr/local/etc/rc.d/postgresql start
-    - /usr/local/etc/rc.d/postgresql status
   test_script: make test
   package_script: make package
   test_package_script:
