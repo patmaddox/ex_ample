@@ -2,13 +2,20 @@ freebsd_instance:
   image_family: freebsd-13-0
 
 task:
-  install_packages_script:
+  upgrade_packages_script:
     - mkdir -p /usr/local/etc/pkg/repos/
     - >-
       echo $'FreeBSD: {\n\turl: "pkg+http://pkg.FreeBSD.org/${ABI}/latest"\n}' > /usr/local/etc/pkg/repos/FreeBSD.conf
     - pkg upgrade -y
+  install_elixir_script:
     - pkg install -y elixir
     - mix local.hex --force
+  install_postgres_script:
+    - pkg install -y postgresql12-server
+    - service postgresql enable
+    - service postgresql initdb
+    - service postgresql start
+    - service postgresql status
   test_script: make test
   package_script: make package
   test_package_script:
