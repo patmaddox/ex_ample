@@ -21,8 +21,6 @@ task:
   package_script: make package
   test_package_script:
     - pkg add *.pkg
-    - ls -l /usr/local/bin/ex_ample
-    - /usr/local/bin/ex_ample eval 'IO.puts("hello absolute path")'
-    - ex_ample eval 'IO.puts("hello global path")'
+    - /usr/local/bin/ex_ample version
   pkg_artifacts:
     path: "*.pkg"
