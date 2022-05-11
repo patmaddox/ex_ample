@@ -11,3 +11,8 @@ task:
     - mix local.hex --force
   test_script: make test
   package_script: make package
+  test_package_script:
+    - pkg add *.pkg
+    - /usr/local/bin/ex_ample eval 'IO.puts("hello world")'
+  pkg_artifacts:
+    path: "*.pkg"
