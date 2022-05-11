@@ -10,6 +10,4 @@ task:
     - pkg install -y elixir
     - mix local.hex --force
   test_script: make test
-  release_script: make release
-  # install_script: pkg install -y elixir
-  # echo_script: echo "hello world"
+  package_script: make package
