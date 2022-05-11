@@ -2,12 +2,14 @@ freebsd_instance:
   image_family: freebsd-13-0
 
 task:
-  configure_repos_script:
+  install_packages_script:
     - mkdir -p /usr/local/etc/pkg/repos/
     - >-
       echo $'FreeBSD: {\n\turl: "pkg+http://pkg.FreeBSD.org/${ABI}/latest"\n}' > /usr/local/etc/pkg/repos/FreeBSD.conf
-  install_deps_script:
     - pkg upgrade -y
     - pkg install -y elixir
+    - mix local.hex --force
+  test_script: make test
+  release_script: make release
   # install_script: pkg install -y elixir
   # echo_script: echo "hello world"
