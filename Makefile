@@ -42,7 +42,7 @@ $(PKG_PLIST) : $(LIBEXEC_DIR) $(BIN)
 $(BIN):
 	@mkdir -p $(BIN_DIR)
 	@rm -f $(BIN)
-	ln -s $(LIBEXEC_DIR)/bin/$(PKG_NAME) $(BIN)
+	ln -s /usr/local/libexec/$(PKG_NAME)/bin/$(PKG_NAME) $(BIN)
 
 $(LIBEXEC_DIR) : $(REL_DIR)
 	@rm -rf $(LIBEXEC_DIR)

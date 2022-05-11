@@ -14,6 +14,7 @@ task:
   test_package_script:
     - pkg add *.pkg
     - ls -l /usr/local/bin/ex_ample
-    - /usr/local/bin/ex_ample eval 'IO.puts("hello world")'
+    - /usr/local/bin/ex_ample eval 'IO.puts("hello absolute path")'
+    - ex_ample eval 'IO.puts("hello global path")'
   pkg_artifacts:
     path: "*.pkg"
