@@ -12,10 +12,10 @@ task:
     - mix local.hex --force
   install_postgres_script:
     - pkg install -y postgresql12-server
-    - service postgresql enable
-    - service postgresql initdb
-    - service postgresql start
-    - service postgresql status
+    - sysrc postgresql_enable=yes
+    - /usr/local/etc/rc.d/postgresql initdb
+    - /usr/local/etc/rc.d/postgresql start
+    - /usr/local/etc/rc.d/postgresql status
   test_script: make test
   package_script: make package
   test_package_script:
