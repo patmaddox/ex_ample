@@ -1,6 +1,7 @@
 # Note: `mix deps.get` requires ALLOW_NETWORKING_PACKAGES="ex_ample"
 # in /usr/local/etc/poudriere.conf
 PORTNAME= ex_ample
+DISTVERSION= <%= @dist_version %>
 CATEGORIES= devel
 
 USE_LOCALE= en_US.UTF-8
