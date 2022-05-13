@@ -13,17 +13,25 @@ defmodule Mix.Tasks.FreebsdPort do
   defp assigns do
     %{
       build_id: System.fetch_env!("CIRRUS_BUILD_ID"),
+      branch: System.fetch_env!("CIRRUS_BRANCH"),
       commit_short: github_tag() |> String.slice(0..9),
       dist_version: dist_version(),
       github_tag: github_tag(),
+      port_name: port_name()
     }
   end
-
-  defp github_tag, do: System.fetch_env!("CIRRUS_CHANGE_IN_REPO")
 
   defp dist_version do
     {:ok, base_version} = Mix.Project.config() |> Keyword.fetch(:version)
     timestamp = DateTime.utc_now() |> DateTime.truncate(:second) |> DateTime.to_iso8601() |> String.replace(~r/\D/, "")
     "#{base_version}-b#{timestamp}"
+  end
+
+  defp github_tag, do: System.fetch_env!("CIRRUS_CHANGE_IN_REPO")
+
+  defp port_name do
+    {:ok, app} = Mix.Project.config() |> Keyword.fetch(:app)
+    branch = System.fetch_env!("CIRRUS_BRANCH")
+    "#{app}-#{branch}"
   end
 end

@@ -42,6 +42,7 @@ task:
     - echo '' >> /.cirrus_ssh/known_hosts # needs an empty line at end
     - chmod 700 /.cirrus_ssh
     - chmod 600 /.cirrus_ssh/*
+    - ssh -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts cirrus@pkg "mkdir -p ports/devel/ex_ample-${CIRRUS_BRANCH}"
     - >-
-      scp -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts freebsd/Makefile freebsd/pkg-descr cirrus@pkg:ports/devel/ex_ample/
-    - ssh -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts cirrus@pkg "sudo poudriere bulk -j 131R6-amd64 -p default -O cirrus devel/ex_ample"
+      scp -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts freebsd/Makefile freebsd/pkg-descr cirrus@pkg:ports/devel/ex_ample-${CIRRUS_BRANCH}/
+    - ssh -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts cirrus@pkg "sudo poudriere bulk -j 131R6-amd64 -p default -O cirrus devel/ex_ample-${CIRRUS_BRANCH}"
