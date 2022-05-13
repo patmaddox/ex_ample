@@ -26,3 +26,4 @@ ex_ample-*.tar
 /tmp/
 _stage
 *.pkg
+freebsd/Makefile
