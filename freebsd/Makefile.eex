@@ -1,3 +1,5 @@
+# Note: `mix deps.get` requires ALLOW_NETWORKING_PACKAGES="ex_ample"
+# in /usr/local/etc/poudriere.conf
 PORTNAME= ex_ample
 CATEGORIES= devel
 
@@ -13,7 +15,10 @@ GH_TAGNAME= <%= @github_tag %>
 MIX_ENV= prod
 
 do-build:
-	cd $(WRKSRC) && MIX_ENV=$(MIX_ENV) LANG="$(USE_LOCALE)" LC_ALL="$(USE_LOCALE)" mix release
+	HOME=$(WRKSRC) LANG="$(USE_LOCALE)" LC_ALL="$(USE_LOCALE)" mix local.hex --force
+	HOME=$(WRKSRC) LANG="$(USE_LOCALE)" LC_ALL="$(USE_LOCALE)" mix local.rebar --force
+	cd $(WRKSRC) && HOME=$(WRKSRC) MIX_ENV=$(MIX_ENV) LANG="$(USE_LOCALE)" LC_ALL="$(USE_LOCALE)" mix deps.get
+	cd $(WRKSRC) && HOME=$(WRKSRC) MIX_ENV=$(MIX_ENV) LANG="$(USE_LOCALE)" LC_ALL="$(USE_LOCALE)" mix release
 
 do-install:
 	mkdir -p $(STAGEDIR)$(PREFIX)/libexec/$(PORTNAME)

@@ -17,10 +17,19 @@ task:
     - /usr/local/etc/rc.d/postgresql initdb
   start_postgres_background_script:
     - /usr/local/etc/rc.d/postgresql start
-  test_script: make test
-  package_script: make package
-  test_package_script:
-    - pkg add *.pkg
-    - /usr/local/bin/ex_ample version
-  pkg_artifacts:
-    path: "*.pkg"
+  test_script:
+    - mix deps.get
+    - mix test
+  tailscale_script:
+    - pkg install -y tailscale
+    - service tailscaled enable
+    - service tailscaled start
+    - tailscale up --authkey ${TS_KEY} --hostname cirrus-${CIRRUS_REPO_NAME}-${CIRRUS_BRANCH}-${CIRRUS_BUILD_ID}
+  poudriere_script:
+    - mix freebsd_port
+    - echo '' >> /.cirrus_ssh/key # needs an empty line at end
+    - echo '' >> /.cirrus_ssh/known_hosts # needs an empty line at end
+    - chmod 700 /.cirrus_ssh
+    - chmod 600 /.cirrus_ssh/*
+    - >-
+      scp -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts freebsd/Makefile freebsd/pkg-descr cirrus@pkg:ports/devel/ex_ample/
