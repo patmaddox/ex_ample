@@ -12,9 +12,10 @@ defmodule Mix.Tasks.FreebsdPort do
 
   defp assigns do
     %{
-      github_tag: github_tag(),
+      build_id: System.fetch_env!("CIRRUS_BUILD_ID"),
       commit_short: github_tag() |> String.slice(0..9),
-      dist_version: dist_version()
+      dist_version: dist_version(),
+      github_tag: github_tag(),
     }
   end
 
@@ -22,7 +23,7 @@ defmodule Mix.Tasks.FreebsdPort do
 
   defp dist_version do
     {:ok, base_version} = Mix.Project.config() |> Keyword.fetch(:version)
-    build_id = System.fetch_env!("CIRRUS_BUILD_ID")
-    "#{base_version}-b#{build_id}"
+    timestamp = DateTime.utc_now() |> DateTime.truncate(:second) |> DateTime.to_iso8601() |> String.replace(~r/\D/, "")
+    "#{base_version}-b#{timestamp}"
   end
 end

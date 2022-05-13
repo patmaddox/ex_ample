@@ -5,7 +5,7 @@ DISTVERSION= <%= @dist_version %>
 CATEGORIES= devel
 
 MAINTAINER= pat@patmaddox.com
-COMMENT= git:<%= @commit_short %>
+COMMENT= https://cirrus-ci.com/build/<%= @build_id %> (git:<%= @commit_short %>)
 
 USE_LOCALE= en_US.UTF-8
 
