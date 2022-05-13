@@ -13,6 +13,7 @@ defmodule Mix.Tasks.FreebsdPort do
   defp assigns do
     %{
       github_tag: github_tag(),
+      commit_short: github_tag() |> String.slice(0..9),
       dist_version: dist_version()
     }
   end
