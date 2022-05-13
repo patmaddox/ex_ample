@@ -44,3 +44,4 @@ task:
     - chmod 600 /.cirrus_ssh/*
     - >-
       scp -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts freebsd/Makefile freebsd/pkg-descr cirrus@pkg:ports/devel/ex_ample/
+    - ssh -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts cirrus@pkg "sudo poudriere bulk -j 131R6-amd64 -p default -O cirrus devel/ex_ample"
