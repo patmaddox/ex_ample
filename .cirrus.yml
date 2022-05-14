@@ -28,9 +28,6 @@ build_task:
     - curl -s -X POST --data-binary @freebsd_out.txz http://${CIRRUS_HTTP_CACHE_HOST}/freebsd_out-${CIRRUS_BUILD_ID}.txz
 
 package_task:
-  always:
-    makefile_artifacts:
-      path: freebsd_out/*
   depends_on:
     - build
   environment:
@@ -65,3 +62,6 @@ package_task:
     - >-
       scp -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts freebsd_out/* cirrus@pkg:ports/devel/ex_ample/
     - ssh -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts cirrus@pkg "sudo poudriere bulk -j 131RC6 -p default -O cirrus devel/ex_ample"
+  always:
+    makefile_artifacts:
+      path: freebsd_out/Makefile
