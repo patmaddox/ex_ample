@@ -2,7 +2,7 @@
 # in /usr/local/etc/poudriere.conf
 PORTNAME= <%= @port_name %>
 BASENAME= ex_ample
-DISTVERSION= <%= @dist_version %>
+PORTVERSION= <%= @port_version %>
 CATEGORIES= devel
 
 MAINTAINER= pat@patmaddox.com
