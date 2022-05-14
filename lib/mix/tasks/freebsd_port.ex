@@ -22,16 +22,41 @@ defmodule Mix.Tasks.FreebsdPort do
   end
 
   defp dist_version do
-    {:ok, base_version} = Mix.Project.config() |> Keyword.fetch(:version)
-    timestamp = DateTime.utc_now() |> DateTime.truncate(:second) |> DateTime.to_iso8601() |> String.replace(~r/\D/, "")
-    "#{base_version}-b#{timestamp}"
+    if is_release?() do
+      base_version()
+    else
+      timestamp =
+        DateTime.utc_now()
+        |> DateTime.truncate(:second)
+        |> DateTime.to_iso8601()
+        |> String.replace(~r/\D/, "")
+
+      "#{base_version()}-b#{timestamp}"
+    end
   end
 
   defp github_tag, do: System.fetch_env!("CIRRUS_CHANGE_IN_REPO")
 
   defp port_name do
     {:ok, app} = Mix.Project.config() |> Keyword.fetch(:app)
-    branch = System.fetch_env!("CIRRUS_BRANCH")
-    "#{app}-#{branch}"
+
+    if is_release?() do
+      app
+    else
+      branch = System.fetch_env!("CIRRUS_BRANCH")
+      "#{app}-#{branch}"
+    end
+  end
+
+  def base_version do
+    {:ok, version} = Mix.Project.config() |> Keyword.fetch(:version)
+    version
+  end
+
+  defp is_release? do
+    case System.fetch_env("CIRRUS_TAG") do
+      {:ok, version} -> version == "v#{base_version()}"
+      _ -> false
+    end
   end
 end
