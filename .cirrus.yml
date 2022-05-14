@@ -28,6 +28,9 @@ build_task:
     - curl -s -X POST --data-binary @freebsd_out.txz http://${CIRRUS_HTTP_CACHE_HOST}/freebsd_out.txz
 
 package_task:
+  always:
+    makefile_artifacts:
+      path: freebsd_out/*
   depends_on:
     - build
   environment:
