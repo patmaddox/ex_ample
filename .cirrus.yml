@@ -58,7 +58,7 @@ package_task:
     - chmod 600 /.cirrus_ssh/*
     - curl -o freebsd_out.txz http://${CIRRUS_HTTP_CACHE_HOST}/freebsd_out.txz
     - tar -xzf freebsd_out.txz
-    - ssh -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts cirrus@pkg "mkdir -p ports/devel/ex_ample-${CIRRUS_BRANCH}"
+    - ssh -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts cirrus@pkg "mkdir -p ports/devel/ex_ample"
     - >-
-      scp -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts freebsd_out/* cirrus@pkg:ports/devel/ex_ample-${CIRRUS_BRANCH}/
-    - ssh -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts cirrus@pkg "sudo poudriere bulk -j 131RC6 -p default -O cirrus devel/ex_ample-${CIRRUS_BRANCH}"
+      scp -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts freebsd_out/* cirrus@pkg:ports/devel/ex_ample/
+    - ssh -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts cirrus@pkg "sudo poudriere bulk -j 131RC6 -p default -O cirrus devel/ex_ample"

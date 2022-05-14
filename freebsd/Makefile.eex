@@ -3,6 +3,9 @@
 PORTNAME= <%= @port_name %>
 BASENAME= ex_ample
 PORTVERSION= <%= @port_version %>
+<%= if @suffix do %>
+PKGNAMESUFFIX= <%= @suffix %>
+<% end %>
 CATEGORIES= devel
 
 MAINTAINER= pat@patmaddox.com

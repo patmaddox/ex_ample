@@ -14,10 +14,11 @@ defmodule Mix.Tasks.FreebsdPort do
     %{
       build_id: System.fetch_env!("CIRRUS_BUILD_ID"),
       branch: System.fetch_env!("CIRRUS_BRANCH"),
-      commit_short: github_tag() |> String.slice(0..9),
+      commit_short: commit_short(),
       port_version: port_version(),
       github_tag: github_tag(),
-      port_name: port_name()
+      port_name: port_name(),
+      suffix: suffix()
     }
   end
 
@@ -37,14 +38,17 @@ defmodule Mix.Tasks.FreebsdPort do
 
   defp github_tag, do: System.fetch_env!("CIRRUS_CHANGE_IN_REPO")
 
+  defp commit_short, do: github_tag() |> String.slice(0..9)
+
   defp port_name do
     {:ok, app} = Mix.Project.config() |> Keyword.fetch(:app)
+    app
+  end
 
-    if is_release?() do
-      app
-    else
+  defp suffix do
+    unless is_release?() do
       branch = System.fetch_env!("CIRRUS_BRANCH")
-      "#{app}-#{branch}"
+      "-#{branch}-#{commit_short()}"
     end
   end
 
