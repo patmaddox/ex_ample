@@ -47,8 +47,7 @@ defmodule Mix.Tasks.FreebsdPort do
 
   defp suffix do
     unless is_release?() do
-      branch = System.fetch_env!("CIRRUS_BRANCH")
-      "-#{branch}-#{commit_short()}"
+      "-#{System.fetch_env!("CIRRUS_BRANCH")}"
     end
   end
 
