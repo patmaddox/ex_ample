@@ -33,7 +33,7 @@ package_task:
   environment:
     TS_KEY: ENCRYPTED[6daa13fe28a5ea949d0a671af6868842fdb580d1fd39e9a8f16ab6f4cafd1f303cb516400980bd9f74d76e14465f64a0]
     SSH_KEY: ENCRYPTED[f7051aec37d1022b02923cbe131dbcbb576cac7de52bd07e2a9c9590bdf8781b62e685594be7192a985d5b0380b5fb92]
-    PKG_HOST: "pkg.lion-dominant.ts.net ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEdaV8ewD50TTLX32RTFusxPIjglRr2C3u/DgQRdZmUJJObjV8tRuEoVvKKJKj4JEVVBeRIa2ra5HOu3ydgQIoU="
+    PKG_HOST: "pkg.lion-dominant.ts.net ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNoNL9LT2w6JFKUoN2xFrOUUJeXzL2pBW1M/HvscsAts3eMyUJmtH3dBDUHZ6XH5Gzjqt14/fI0rqCIBTfQPTio="
   ssh_key_file:
     path: /.cirrus_ssh/key
     variable_name: SSH_KEY
@@ -61,4 +61,4 @@ package_task:
     - ssh -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts cirrus@pkg "mkdir -p ports/devel/ex_ample-${CIRRUS_BRANCH}"
     - >-
       scp -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts freebsd_out/* cirrus@pkg:ports/devel/ex_ample-${CIRRUS_BRANCH}/
-    - ssh -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts cirrus@pkg "sudo poudriere bulk -j 131R6-amd64 -p default -O cirrus devel/ex_ample-${CIRRUS_BRANCH}"
+    - ssh -i /.cirrus_ssh/key -o UserKnownHostsFile=/.cirrus_ssh/known_hosts cirrus@pkg "sudo poudriere bulk -j 131RC6 -p default -O cirrus devel/ex_ample-${CIRRUS_BRANCH}"
